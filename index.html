@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Justin Voon</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#080b18;
+    overflow:hidden;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+/* Floating particles */
+.particle{
+    position:absolute;
+    width:4px;
+    height:4px;
+    border-radius:50%;
+    background:white;
+    opacity:.5;
+    animation:float linear infinite;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(110vh);
+    }
+    to{
+        transform:translateY(-10vh);
+    }
+}
+
+/* Main Text */
+h1{
+    font-size:80px;
+    font-weight:bold;
+    background:linear-gradient(
+        90deg,
+        #00f7ff,
+        #00ff99,
+        #ff00ff,
+        #ffaa00,
+        #00f7ff
+    );
+    background-size:400%;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:
+        rainbow 6s linear infinite,
+        glow 2s ease-in-out infinite alternate;
+    white-space:nowrap;
+}
+
+@keyframes rainbow{
+    0%{background-position:0%;}
+    100%{background-position:400%;}
+}
+
+@keyframes glow{
+    from{
+        filter:drop-shadow(0 0 10px cyan);
+    }
+    to{
+        filter:drop-shadow(0 0 35px magenta);
+    }
+}
+
+/* Typing Cursor */
+.cursor{
+    color:white;
+    animation:blink .7s infinite;
+}
+
+@keyframes blink{
+    50%{opacity:0;}
+}
+
+.container{
+    z-index:10;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1><span id="text"></span><span class="cursor">|</span></h1>
+</div>
+
+<script>
+const message="Welcome to Justin's web";
+const text=document.getElementById("text");
+
+let i=0;
+
+function type(){
+    if(i<message.length){
+        text.innerHTML+=message.charAt(i);
+        i++;
+        setTimeout(type,150);
+    }
+}
+type();
+
+// Generate particles
+for(let i=0;i<120;i++){
+    const p=document.createElement("div");
+    p.className="particle";
+
+    p.style.left=Math.random()*100+"vw";
+    p.style.animationDuration=(5+Math.random()*8)+"s";
+    p.style.animationDelay=Math.random()*8+"s";
+    p.style.opacity=Math.random();
+    p.style.transform="scale("+(0.5+Math.random()*2)+")";
+
+    document.body.appendChild(p);
+}
+</script>
+
+</body>
+</html>
