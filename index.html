@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Justin Voon</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#070b18;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+}
+
+/* ==========================
+        BACKGROUND
+========================== */
+
+body::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(circle at top,#10214d 0%,transparent 45%),
+        radial-gradient(circle at bottom,#140828 0%,transparent 45%);
+    opacity:.7;
+}
+
+/* ==========================
+      PARTICLES
+========================== */
+
+.particle{
+    position:absolute;
+    border-radius:50%;
+    background:white;
+    pointer-events:none;
+    animation:float linear infinite;
+}
+
+@keyframes float{
+
+    from{
+        transform:translateY(110vh);
+    }
+
+    to{
+        transform:translateY(-10vh);
+    }
+
+}
+
+/* ==========================
+       CONTAINER
+========================== */
+
+.container{
+    position:relative;
+    z-index:5;
+    text-align:center;
+    width:90%;
+    max-width:1200px;
+}
+
+/* ==========================
+      HELLO WORLD
+========================== */
+
+h1{
+
+    font-size:clamp(2rem,10vw,6rem);
+
+    font-weight:900;
+
+    letter-spacing:2px;
+
+    line-height:1.2;
+
+    background:linear-gradient(
+        90deg,
+        #00eaff,
+        #00ff88,
+        #ff00d4,
+        #ffb300,
+        #00eaff
+    );
+
+    background-size:500%;
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    animation:
+        rainbow 6s linear infinite,
+        glow 2s ease-in-out infinite alternate;
+
+}
+
+@keyframes rainbow{
+
+    0%{
+        background-position:0%;
+    }
+
+    100%{
+        background-position:500%;
+    }
+
+}
+
+@keyframes glow{
+
+    from{
+        filter:drop-shadow(0 0 8px cyan);
+    }
+
+    to{
+        filter:drop-shadow(0 0 30px magenta);
+    }
+
+}
+
+/* ==========================
+      SUBTITLE
+========================== */
+
+.subtitle{
+
+    color:#b8c2d8;
+
+    margin-top:25px;
+
+    font-size:clamp(0.9rem,2vw,1.4rem);
+
+    opacity:0;
+
+    animation:fadeIn 1s forwards;
+
+    animation-delay:2.2s;
+
+}
+
+@keyframes fadeIn{
+
+    to{
+        opacity:1;
+    }
+
+}
+
+/* ==========================
+        CURSOR
+========================== */
+
+.cursor{
+
+    color:white;
+
+    -webkit-text-fill-color:white;
+
+    animation:blink .7s infinite;
+
+}
+
+@keyframes blink{
+
+    50%{
+        opacity:0;
+    }
+
+}
+
+/* ==========================
+     SCROLL ARROW
+========================== */
+
+.arrow{
+
+    margin-top:60px;
+
+    font-size:40px;
+
+    color:white;
+
+    animation:bounce 1.5s infinite;
+
+    opacity:.8;
+
+}
+
+@keyframes bounce{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(12px);
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>
+<span id="text"></span><span class="cursor">|</span>
+</h1>
+
+<div class="subtitle">
+Welcome! 👋
+</div>
+
+<div class="arrow">
+↓
+</div>
+
+</div>
+
+<script>
+
+/***********************
+ Typing Animation
+************************/
+
+const message="Justin's Web";
+
+const text=document.getElementById("text");
+
+let index=0;
+
+function type(){
+
+    if(index<message.length){
+
+        text.innerHTML+=message.charAt(index);
+
+        index++;
+
+        setTimeout(type,130);
+
+    }
+
+}
+
+type();
+
+/***********************
+ Floating Particles
+************************/
+
+for(let i=0;i<180;i++){
+
+    const p=document.createElement("div");
+
+    p.className="particle";
+
+    const size=Math.random()*4+1;
+
+    p.style.width=size+"px";
+
+    p.style.height=size+"px";
+
+    p.style.left=Math.random()*100+"vw";
+
+    p.style.animationDuration=(6+Math.random()*10)+"s";
+
+    p.style.animationDelay=Math.random()*8+"s";
+
+    p.style.opacity=Math.random()*0.8;
+
+    document.body.appendChild(p);
+
+}
+
+/***********************
+ Mouse Glow
+************************/
+
+document.addEventListener("mousemove",(e)=>{
+
+    document.body.style.background=
+    `radial-gradient(circle at ${e.clientX}px ${e.clientY}px,
+    rgba(0,120,255,.15),
+    #070b18 20%)`;
+
+});
+
+</script>
+
+</body>
+</html>
